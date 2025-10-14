@@ -1,0 +1,53 @@
+/* 
+===============================================================================
+  00_meta.twee — Story Metadata
+===============================================================================
+
+This file defines the *core metadata* for the story. It is required for Tweego
+or the Twee3 extension to compile the project into a playable HTML.
+
+What it contains:
+- StoryTitle → The name of the project, shown in the browser tab & saves.
+- StoryData  → Metadata about format, version, IFID, and starting passage.
+
+Fields in StoryData:
+- format          → Which story format the game uses.
+- format-version  → The version of that story format.
+- start           → The passage where the story begins.
+- ifid            → Interactive Fiction ID, a unique identifier for this story.
+
+Important for collaborators:
+- If you rename the starting passage, update the "start:" field here.
+- Do not change the IFID unless you deliberately want to reset save files.
+- This file should contain *no story text or logic* — only metadata.
+
+===============================================================================
+*/
+
+:: StoryTitle
+Reference VN Project (Student Template)
+
+:: StoryAuthor
+Course Template
+
+:: StorySettings
+StoryFormat: SugarCube 2.37.3
+
+:: StoryConfig[script]
+Config.saves.slots = 6;
+Config.passages.start = "Start"; 
+
+:: StoryData
+{
+  "ifid": "E5BD1880-C477-4001-8A76-B1E6527ED23B",
+  "format": "SugarCube",
+  "format-version": "2.37.3",
+  "start": "Start",
+  "tag-colors": 
+    {
+      "definition": "orange",
+      "setup": "purple"
+    },
+  "zoom": 1
+}
+

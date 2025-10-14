@@ -1,0 +1,121 @@
+/* 
+===============================================================================
+  StoryStylesheet — Visual and Layout Rules
+===============================================================================
+
+This file controls the overall *look and feel* of the story. 
+It defines colors, typography, spacing, and the layout of visual-novel elements 
+like dialogue bubbles and portraits.
+
+Use this file to:
+1. Maintain consistent fonts, colors, and layout across passages.
+2. Add accessibility-related styles (e.g., high-contrast or large-text modes).
+3. Customize the "VN" visual style — positioning avatars, bubble shapes, etc.
+4. Override SugarCube’s default UI elements if needed.
+
+Important for collaborators:
+- Only adjust visual presentation here; do not put logic or variables.
+- Add new CSS classes for custom widgets or passage layouts as needed.
+- Keep all class names semantic (e.g., `.bubble`, `.avatar`, `.controls`).
+
+===============================================================================
+*/
+
+:: StoryStylesheet[stylesheet]
+:root{
+  --ui:#0e1016; --panel:#141826; --ink:#e9e9f1; --muted:#9aa1aa; --line:#22283a;
+  --accent:#79a2ff; --accent-2:#9ad8ff; --danger:#ff6b6b;
+}
+html,body{height:100%;}
+body{background:var(--ui); color:var(--ink); font-family:Inter,Segoe UI,system-ui,Arial,sans-serif;}
+#passage{max-width:1024px; margin:2.5rem auto; padding:0 1rem;}
+
+/* Toolbar (top) */
+.toolbar{
+  position:sticky; top:0; z-index:10; backdrop-filter:saturate(140%) blur(8px);
+  background:linear-gradient(180deg, rgba(14,16,22,.9), rgba(14,16,22,.6));
+  border-bottom:1px solid var(--line); padding:.5rem 1rem; margin-bottom:1rem;
+}
+.toolbar .row{display:flex; align-items:center; gap:.5rem; justify-content:space-between; max-width:1080px; margin:0 auto;}
+.brand{font-weight:800; letter-spacing:.3px; color:var(--ink);}
+
+/* Buttons */
+.btn, .link-internal{
+  display:inline-flex; align-items:center; gap:.5rem;
+  padding:.55rem .85rem; border-radius:.7rem; border:1px solid var(--line);
+  background:#121523; color:var(--ink); text-decoration:none; cursor:pointer;
+  transition:transform .08s ease, background .15s ease;
+}
+.btn:hover, .link-internal:hover{background:#161a2b;}
+.btn:active{transform:translateY(1px);}
+.btn--ghost{background:transparent;}
+.btn--primary{background:var(--accent); color:#0b1220; border-color:transparent;}
+.btn--danger{background:#22131a; border-color:#3a1a24; color:#ffbbc0;}
+.btn[disabled]{opacity:.45; pointer-events:none}
+
+/* VN stage */
+.vn-stage{
+  margin-top: -12rem; 
+  display:flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem; /* space between avatar and dialogue */}
+
+.vn-stage.left  .avatar{order:1;}
+.vn-stage.left  .bubble{order:2;}
+
+.vn-stage.right .avatar{order:2;}
+.vn-stage.right .bubble{order:1;}
+
+.avatar img{width:220px; height:220px; object-fit:cover; border-radius:1rem; box-shadow:0 10px 34px rgba(0,0,0,.55);}
+.bubble{
+  background:var(--panel); border:1px solid var(--line); border-radius:16px;
+  padding:1rem 1.25rem; box-shadow:0 10px 34px rgba(0,0,0,.35);
+}
+.bubble .name{font-weight:700; color:var(--accent); margin-bottom:.25rem;}
+
+.bubble p{margin:.4rem 0 0; line-height:1.6;}
+
+.controls{
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+  position: absolute;
+  bottom: 2rem;
+  right: 3rem;
+}
+
+
+.small{color:var(--muted); font-size:.9rem}
+
+/* Footer quick settings */
+.quick-settings{display:flex; gap:.5rem; flex-wrap:wrap; margin-top:1rem}
+
+/* Responsive */
+@media (max-width:760px){
+  .vn-stage{grid-template-columns:1fr}
+  .avatar{justify-self:center}
+}
+
+
+.avatar{
+  width: clamp(160px, 20vw, 220px);
+  height: clamp(160px, 20vw, 220px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.avatar img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 1rem;
+  background: #0f1322;
+  border: 1px solid var(--line);
+  box-shadow: 0 8px 30px rgba(0,0,0,.6);
+}
+
+/* If you ever want to see the full image uncropped: add class 'contain' */
+.avatar.contain img{ object-fit: contain; background:#0f1322; }

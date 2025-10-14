@@ -1,0 +1,48 @@
+/* 
+===============================================================================
+  01_settings.twee — Story Settings & Initialization
+===============================================================================
+
+This file defines:
+1. Global variables that the story needs to function (e.g. player name, 
+   characters, flags).
+2. Accessibility and UX toggles (high contrast, large text, etc.).
+3. Other default values the game should start with.
+
+The content lives inside a special passage:
+- :: StoryInit → runs once at the very beginning of a new playthrough.
+  Anything set here becomes available throughout the story.
+
+Important for collaborators:
+- Add new global state here if it should always exist when a new game starts.
+- Use `$variables` (e.g. $playerName) for things that change during play.
+- Do not put story text here — just setup values.
+- If you add accessibility or gameplay options, initialize them here.
+
+===============================================================================
+*/
+
+:: StoryInit
+/* --- Player setup --- */
+<<set $player_Name      = "YourName">>
+
+/* --- Character names --- */
+<<set $mentor_Name       = "Morgan">>
+<<set $visitor_Name      = "Avery">>
+<<set $archivist_Name    = "Jules">>
+
+/* --- Example topic variable --- */
+<<set $topic_Question = "How do archives shape the stories communities remember?" >>
+
+/* --- General state flags --- */
+<<set $progress = 0>> 
+
+/* --- Accessibility / UX flags --- */
+<<set $a11y_highContrast = false>>
+<<set $a11y_largeText    = false>>
+<<set $reduceMotion      = false>>
+<<set $timedChoices      = false>>
+
+
+
+

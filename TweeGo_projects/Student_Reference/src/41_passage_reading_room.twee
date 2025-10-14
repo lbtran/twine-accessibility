@@ -1,0 +1,25 @@
+/* 
+===============================================================================
+  41_passage_reading_room.twee — Passage Name: Reading Room
+===============================================================================
+
+
+===============================================================================
+*/
+
+:: Reading Room
+<<set $step = 0>>
+<<set _scene = [
+  { "speaker": $mentor_Name, "side":"left",  "avatar":"../assets/images/mentor.png",
+    "text":"Quiet stacks, steady light. Let’s see what the catalog turns up." },
+
+  { "speaker": $archivist_Name, "side":"right", "avatar":"../assets/images/archivist.png",
+    "text":"Here’s a finding aid with three relevant boxes. Which one should we pull first?" },
+
+  { "speaker": $mentor_Name, "side":"left",  "avatar":"../assets/images/mentor.png",
+    "text":"We’ll mark what we find and file a copy for later citation." }
+]>>
+<<set $progress += 1>>
+
+<section id="dialogue-area"><<RenderScene _scene $step>></section>
+<section id="controls"><<NavControls _scene $step>></section>

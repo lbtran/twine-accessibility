@@ -1,0 +1,90 @@
+/* 
+===============================================================================
+  03_widgets.twee — Widgets & Macros
+===============================================================================
+
+This file defines *widget passages* (SugarCube macros) that encapsulate small,
+reusable UI behaviors and rendering snippets. Widgets keep passages clean,
+promote consistency, and make common tasks (buttons, dialogue lines, menus,
+formatting, ARIA announcements) easy to reuse across the story.
+
+The warning: "Unrecognized macro/widget! 'RenderScene' has not been defined in config files!"
+can be ignored. It's just SugarCube telling you that the widget is defined in a passage, not
+in a config file.
+
+What it contains:
+- :: [widget] passages created with <<widget>> … <</widget>>
+- Small, composable building blocks (e.g., buttons, text formatters, stat chips)
+- UI helpers that can be safely invoked from StoryHeader/StoryFooter and content
+
+Important for collaborators:
+- Keep widgets **pure and focused**: input via `$args`, output via markup.
+- If a widget relies on `setup.*` helpers (e.g., `setup.stripHTML`, `setup.announce`,
+  `setup.lines`), document those dependencies near the widget.
+- Name widgets **kebabCase** or **dot.notation** to reflect scope (e.g., `ui.button`,
+  `format.smallcaps`, `dialogue.say`).
+
+Conventions:
+- Arguments: Access with `$args` (e.g., `$args[0]` is the first argument).
+
+
+===============================================================================
+*/
+
+:: Widgets [widget]
+<<widget "RenderScene">>
+	<<set _scene = $args[0]>>
+	<<set _i = $args[1]>>
+	<<set _line = _scene[_i]>>
+
+	<div class="vn-stage <<= _line.side >>" data-step="<<=_i>>">
+		<div class="avatar">
+			<<= '<img src="' + _line.avatar + '" alt="' + _line.speaker + ' portrait">' >>
+		</div>
+
+		<div class="bubble">
+			<div class="name"><<=_line.speaker>></div>
+			<p><<=_line.text>></p>
+			<div class="small">Line <<= _i + 1 >> / <<= _scene.length >></div>
+		</div>
+	</div>
+<</widget>>
+
+
+
+
+
+<<widget "NavControls">>
+	<<set _scene = $args[0]>>
+	<<set _i = $args[1]>>
+
+	<div class="controls">
+		<!-- Back -->
+		<<if _i > 0>>
+			<<link "← Back">>
+				<<addclass "#controls .link-internal:last" "btn btn--ghost">>
+				<<set $step -= 1>>
+				<<replace "#dialogue-area">><<RenderScene _scene $step>><</replace>>
+				<<replace "#controls">><<NavControls _scene $step>><</replace>>
+			<</link>>
+		<<else>>
+			<span class="btn btn--ghost" aria-disabled="true">← Back</span>
+		<</if>>
+
+		<!-- Next / Continue -->
+		<<if _i < _scene.length - 1>>
+			<<link "Next →">>
+				<<addclass "#controls .link-internal:last" "btn btn--primary">>
+				<<set $step += 1>>
+				<<replace "#dialogue-area">><<RenderScene _scene $step>><</replace>>
+				<<replace "#controls">><<NavControls _scene $step>><</replace>>
+			<</link>>
+		<<else>>
+			<<link "Continue →">>
+				<<addclass "#controls .link-internal:last" "btn btn--primary">>
+				<<goto "Choice Hub">>
+			<</link>>
+		<</if>>
+	</div>
+<</widget>>
+

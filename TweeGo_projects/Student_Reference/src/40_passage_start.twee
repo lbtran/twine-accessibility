@@ -1,0 +1,53 @@
+/* 
+===============================================================================
+  40_passage_start.twee — Passage Name: Start
+===============================================================================
+
+
+Important for collaborators:
+- position and size are the associateive box's position and size on Twine editor's visual map.
+
+
+===============================================================================
+*/
+
+
+:: Start
+<<set $step = 0>>
+
+<<set _scene = [
+  {
+    "speaker": $mentor_Name,
+    "side": "left",
+    "avatar": "assets/images/mentor.png",
+    "text": "Welcome, " + $player_Name + ". This is the class reference project.",
+
+  },
+  {
+    "speaker": $visitor_Name,
+    "side": "right",
+    "avatar": "assets/images/visitor.png",
+    "text": "We'll demo a simple visual-novel flow with Next and Back."
+  },
+  {
+    "speaker": $archivist_Name,
+    "side": "left",
+    "avatar": "assets/images/archivist.png",
+    "text": "Today's prompt: " + $topic_Question
+  }
+]>>
+
+<section id="dialogue-area"><<RenderScene _scene $step>></section>
+<section id="controls"><<NavControls _scene $step>></section>
+
+:: Choice Hub
+Choose a path:
+
+* [[Reading Room|Reading Room]]
+* [[Town Square|Town Square]]
+* [[Replay Intro|Start]]
+
+
+:: Town Square
+Open air, quick interviews, stories in motion.  
+[[Back to Choices|Choice Hub]]
