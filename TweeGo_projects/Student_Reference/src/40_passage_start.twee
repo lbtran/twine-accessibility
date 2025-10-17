@@ -3,10 +3,7 @@
   40_passage_start.twee — Passage Name: Start
 ===============================================================================
 
-
-Important for collaborators:
-- position and size are the associateive box's position and size on Twine editor's visual map.
-
+This is where the project will start from when running.
 
 ===============================================================================
 */
@@ -48,6 +45,3 @@ Choose a path:
 * [[Replay Intro|Start]]
 
 
-:: Town Square
-Open air, quick interviews, stories in motion.  
-[[Back to Choices|Choice Hub]]
